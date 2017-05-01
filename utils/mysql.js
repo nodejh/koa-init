@@ -4,8 +4,8 @@ const config = require('./../config/config').mysql;
 
 const pool = mysql.createPool({
   host: config.host,
-  user: config.USERNAME,
-  password: config.PASSWORD,
+  user: config.user,
+  password: config.password,
   database: config.database,
 });
 
