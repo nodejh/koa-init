@@ -1,12 +1,11 @@
-/**
- * 主页子路由
- */
-
 const router = require('koa-router')();
-const index = require('../controllers/home');
+
+const page = require('./page');
+const api = require('./api');
 
 
-router.get('/', index.indexPage);
+router.use('/', page.routes(), page.allowedMethods());
+router.use('/api/v0.1', api.routes(), api.allowedMethods());
 
 
 module.exports = router;

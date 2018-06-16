@@ -1,5 +1,6 @@
-const indexPage = async (ctx) => {
+const home = async (ctx) => {
   const title = 'Home Page';
+  ctx.db();
   await ctx.render('index', {
     title,
   });
@@ -7,5 +8,5 @@ const indexPage = async (ctx) => {
 
 
 module.exports = {
-  indexPage,
+  home,
 };

@@ -7,3 +7,13 @@
 5. 使用 koa-bodyparser 解析 HTTP body
 6. 使用 koa-router 管理路由
 
+## ESLINT 
+
+https://www.npmjs.com/package/eslint-config-airbnb
+
+```
+(
+  export PKG=eslint-config-airbnb;
+  npm info "$PKG@latest" peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g' | xargs npm install --save-dev "$PKG@latest"
+)
+```

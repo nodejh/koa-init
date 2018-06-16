@@ -4,9 +4,10 @@ const views = require('koa-views');
 const koaStatic = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
+const debug = require('debug')('app');
 
 const config = require('./config/config');
-const routers = require('./routers/routers');
+const routers = require('./routers');
 
 
 const app = new Koa();
@@ -27,6 +28,11 @@ app.use(views(path.join(__dirname, './views'), {
   extension: 'ejs',
 }));
 
+// db middleware
+app.use(async (ctx, next) => {
+  ctx.db = function db() { console.log('db'); };
+  await next();
+});
 
 // 初始化路由中间件
 app.use(routers.routes()).use(routers.allowedMethods());
@@ -34,4 +40,4 @@ app.use(routers.routes()).use(routers.allowedMethods());
 
 // 监听启动端口
 app.listen(config.port);
-console.log(`the server is start at port ${config.port}`);
+debug('the server is start at port %s', config.port);

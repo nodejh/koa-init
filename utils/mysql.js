@@ -10,24 +10,22 @@ const pool = mysql.createPool({
 });
 
 
-const query = (sql, values) => {
-  return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      if (err) {
-        resolve(err);
-      } else {
-        connection.query(sql, values, (errQuery, rows) => {
-          if (errQuery) {
-            reject(errQuery);
-          } else {
-            resolve(rows);
-          }
-          connection.release();
-        });
-      }
-    });
+const query = (sql, values) => new Promise((resolve, reject) => {
+  pool.getConnection((err, connection) => {
+    if (err) {
+      resolve(err);
+    } else {
+      connection.query(sql, values, (errQuery, rows) => {
+        if (errQuery) {
+          reject(errQuery);
+        } else {
+          resolve(rows);
+        }
+        connection.release();
+      });
+    }
   });
-};
+});
 
 
 module.exports = {
