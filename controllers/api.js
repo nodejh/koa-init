@@ -1,8 +1,9 @@
-const testPage = async (ctx) => {
-  const title = 'Test Page';
-  await ctx.render('test', {
-    title,
-  });
+const testGet = async (ctx) => {
+  const row = await ctx.db.get('user');
+  ctx.body = {
+    success: true,
+    data: row,
+  };
 };
 
 
@@ -15,6 +16,6 @@ const testPost = async (ctx) => {
 
 
 module.exports = {
-  testPage,
+  testGet,
   testPost,
 };

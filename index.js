@@ -4,13 +4,14 @@ const views = require('koa-views');
 const koaStatic = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
+const rds = require('ali-rds');
 const debug = require('debug')('app');
-
 const config = require('./config/config');
 const routers = require('./routers');
 
 
 const app = new Koa();
+const db = rds(config.mysql);
 
 
 // 配置控制台日志中间件
@@ -30,7 +31,7 @@ app.use(views(path.join(__dirname, './views'), {
 
 // db middleware
 app.use(async (ctx, next) => {
-  ctx.db = function db() { console.log('db'); };
+  ctx.db = db;
   await next();
 });
 
